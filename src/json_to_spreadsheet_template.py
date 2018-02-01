@@ -24,7 +24,7 @@ class SpreadsheetCreator:
                 v = self._gatherValues(baseUri+schema, dependencies)
                 values.update(v)
             # Build the spreadsheet from the retrieved values
-            self._buildSpreadsheet(values, output)
+            return self._buildSpreadsheet(values, output)
         except ValueError as e:
             self.logger.error("Error:" + str(e))
             raise e
@@ -157,7 +157,9 @@ class SpreadsheetCreator:
         if "Sheet" in wb.sheetnames:
             wb.remove(wb.get_sheet_by_name("Sheet"))
 
-        wb.save(filename=outputLocation)
+        # TODO save the spreadsheet
+        # wb.save(filename=outputLocation)
+        return wb
 
 
 if __name__ == '__main__':

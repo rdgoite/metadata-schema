@@ -1,0 +1,28 @@
+service: hca-metadata-schema
+
+frameworkVersion: ">=1.0.0 <2.0.0"
+
+plugins:
+  - serverless-python-requirements
+  - serverless-step-functions
+  - serverless-pseudo-parameters
+custom:
+  private: ${file(private.yml)}
+
+provider:
+  name: aws
+  runtime: python3.6
+  region: ${self:custom.private.region}
+  stage: ${self:custom.private.stage}
+
+functions:
+  convert:
+    handler: handler.convert
+    events:
+      - http:
+          path: convert
+          method: post
+          cors: true
+
+
+

@@ -1,0 +1,79 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "http://schema.humancellatlas.org/type/biomaterial/specimen_from_organism/4.0.0/specimen_from_organism.json",
+    "description": "Information about the specimen that was extracted from the organism.",
+    "additionalProperties": false,
+    "required": [
+        "$schema",
+        "biomaterial_core",
+	    "organ_part",
+	    "organ"
+    ],
+    "title": "specimen_from_organism",
+    "type": "object",
+    "properties": {
+        "$schema" : {
+            "description": "The URL reference to the schema.",
+            "type": "string",
+            "pattern" : "http://schema.humancellatlas.org/type/biomaterial/[0-9]{1,}.[0-9]{1,}.[0-9]{1,}/specimen_from_organism.json"
+        },
+        "schema_version": {
+            "description": "The version number of the schema in major.minor.patch format.",
+            "type": "string",
+            "pattern": "^[0-9]{1,}.[0-9]{1,}.[0-9]{1,}$",
+            "example": "4.6.1"
+        },
+        "schema_type": {
+            "description": "The type of the metadata schema entity.",
+            "type": "string",
+            "enum": [
+                "biomaterial",
+                "file",
+                "process",
+                "project",
+                "protocol",
+                "analysis_bundle",
+                "biomaterial_bundle",
+                "process_bundle",
+                "project_bundle"
+            ]
+        },
+        "biomaterial_core" : {
+	        "description": "Core biomaterial-level information.",
+            "$ref": "https://raw.githubusercontent.com/HumanCellAtlas/metadata-schema/v5_prototype/json_schema/core/biomaterial/biomaterial_core.json"
+        },
+        "genus_species": {
+            "description": "The scientific binomial name for the species of the biomaterial.",
+            "type" : "array",
+            "example": "Homo sapiens",
+            "items":{
+                "$ref": "https://raw.githubusercontent.com/HumanCellAtlas/metadata-schema/v5_prototype/json_schema/module/ontology/species_ontology.json"
+            },
+            "user_friendly": "Genus species"
+        },
+        "organ": {
+            "description": "The organ that the biomaterial came from. Blood and connective tissue are considered organs.",
+            "$ref": "https://raw.githubusercontent.com/HumanCellAtlas/metadata-schema/v5_prototype/json_schema/module/ontology/organ_ontology.json",
+            "example": "Blood",
+            "comment": "The term organ is very broadly defined here.",
+            "user_friendly": "Organ"
+        },
+        "organ_part": {
+            "description": "A term for a specific part of the organ that the biomaterial came from.",
+            "$ref": "https://raw.githubusercontent.com/HumanCellAtlas/metadata-schema/v5_prototype/json_schema/module/ontology/organ_part_ontology.json",
+            "example": "Umbilical cord blood",
+            "comment": "The term organ part is very broadly defined here.",
+            "user_friendly": "Organ part"
+        },
+        "state_of_specimen": {
+            "description": "State of the specimen at the time of collection and how it was preserved after removal.",
+            "$ref": "https://raw.githubusercontent.com/HumanCellAtlas/metadata-schema/v5_prototype/json_schema/module/biomaterial/state_of_specimen.json"
+        },
+        "collection_time": {
+            "description": "When the biomaterial was collection, in date-time format, yyyy-mm-ddThh:mm:ssZ.",
+            "type": "string",
+            "format": "date-time",
+            "user_friendly": "Time of collection"
+        }
+    }
+}

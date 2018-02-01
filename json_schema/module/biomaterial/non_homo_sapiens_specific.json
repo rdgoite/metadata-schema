@@ -1,0 +1,48 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "http://schema.humancellatlas.org/module/biomaterial/4.0.0/non_homo_sapiens_specific.json",
+    "description": "Information specific to an organism that is NOT a homo sapiens.",
+    "additionalProperties": false,
+    "required": [
+        "$schema"
+    ],
+    "title": "non_homo_sapiens_specific",
+    "type": "object",
+    "properties": {
+        "$schema" : {
+            "description": "The URL reference to the schema.",
+            "type": "string",
+            "pattern" : "http://schema.humancellatlas.org/module/biomaterial/[0-9]{1,}.[0-9]{1,}.[0-9]{1,}/non_homo_sapiens_specific.json"
+        },
+        "schema_version": {
+            "description": "The version number of the schema in major.minor.patch format.",
+            "type": "string",
+            "pattern": "^[0-9]{1,}.[0-9]{1,}.[0-9]{1,}$",
+            "example": "4.6.1"
+        },
+        "schema_type": {
+            "description": "The type of the metadata schema entity.",
+            "type": "string",
+            "enum": [
+                "biomaterial",
+                "file",
+                "process",
+                "project",
+                "protocol",
+                "analysis_bundle",
+                "biomaterial_bundle",
+                "process_bundle",
+                "project_bundle"
+            ]
+        },
+        "strain": {
+            "description": "The name of the strain.",
+            "type": "array",
+            "example": "C57BL/6.",
+            "items": {
+                "$ref": "strain_ontology.json"
+            },
+            "user_friendly": "Strain"
+        }
+    }
+}

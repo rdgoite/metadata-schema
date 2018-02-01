@@ -1,0 +1,16 @@
+{
+  "name": "hca-metadata-schema",
+  "version": "0.1.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Daniel Vaughan",
+  "license": "Apache 2.0",
+  "devDependencies": {
+    "serverless-apigw-binary": "^0.4.4",
+    "serverless-pseudo-parameters": "^1.2.5",
+    "serverless-python-requirements": "^3.0.9",
+    "serverless-step-functions": "^1.2.0"
+  }
+}

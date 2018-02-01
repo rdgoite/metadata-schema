@@ -1,4 +1,4 @@
-service: hca-metadata-schema
+service: "hca-metadata-schema"
 
 frameworkVersion: ">=1.0.0 <2.0.0"
 
@@ -6,8 +6,13 @@ plugins:
   - serverless-python-requirements
   - serverless-step-functions
   - serverless-pseudo-parameters
+  - serverless-apigw-binary
+
 custom:
   private: ${file(private.yml)}
+  apigwBinary:
+    types:
+      - 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
 
 provider:
   name: aws
@@ -16,13 +21,10 @@ provider:
   stage: ${self:custom.private.stage}
 
 functions:
-  convert:
-    handler: handler.convert
+  generate:
+    handler: handler.generate
     events:
       - http:
-          path: convert
+          path: generate
           method: post
           cors: true
-
-
-

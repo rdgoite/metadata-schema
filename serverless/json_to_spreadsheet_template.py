@@ -1,15 +1,16 @@
-from optparse import OptionParser
 import logging
-import openpyxl
+import requests
 from openpyxl import Workbook
-import requests, pprint
 from openpyxl.styles import Font
-
+from optparse import OptionParser
 
 # hard coded tab ordering
-tab_ordering = ["project", "project.publications", "contact", "organism", "familial_relationship", "specimen_from_organism", "cell_suspension",
-                "cell_line", "cell_line.publications", "organoid", "collection_process", "dissociation_process", "enrichment_process", "library_preparation_process",
+tab_ordering = ["project", "project.publications", "contact", "organism", "familial_relationship",
+                "specimen_from_organism", "cell_suspension",
+                "cell_line", "cell_line.publications", "organoid", "collection_process", "dissociation_process",
+                "enrichment_process", "library_preparation_process",
                 "sequencing_process", "purchased_reagents", "protocol", "sequence_file"]
+
 
 class SpreadsheetCreator:
 
@@ -21,7 +22,7 @@ class SpreadsheetCreator:
         try:
             # for each schema, gather the values for the relevant tab(s)
             for schema in schemas:
-                v = self._gatherValues(baseUri+schema, dependencies)
+                v = self._gatherValues(baseUri + schema, dependencies)
                 values.update(v)
             # Build the spreadsheet from the retrieved values
             self._buildSpreadsheet(values, output)
@@ -71,7 +72,7 @@ class SpreadsheetCreator:
                         entities.update(module_values)
                 # if a property does not include a user_friendly tag but includes a reference, fetch the contents of that reference and add them
                 # directly to the properties for this sheet
-                elif("$ref" in properties[prop]):
+                elif ("$ref" in properties[prop]):
                     module = properties[prop]["$ref"]
                     if "ontology" not in module and ("_core" in module or module in dependencies):
                         module_values = self._gatherValues(module, None)
@@ -103,7 +104,7 @@ class SpreadsheetCreator:
             if "type/biomaterial" in schema:
                 values.append(
                     {"header": "Process IDs", "description": "IDs of processes for which this biomaterial is an input",
-                                   "example": None})
+                     "example": None})
             if "type/process" in schema:
                 values.append(
                     {"header": "Protocol IDs", "description": "IDs of protocols which this process implements",
@@ -117,7 +118,8 @@ class SpreadsheetCreator:
                     {"header": "Biomaterial ID", "description": "ID of the biomaterial to which this file relates",
                      "example": None})
                 values.append(
-                    {"header": "Sequencing process ID", "description": "ID of the sequencing process to which this file relates",
+                    {"header": "Sequencing process ID",
+                     "description": "ID of the sequencing process to which this file relates",
                      "example": None})
 
             entities[entity_title] = values
@@ -125,7 +127,6 @@ class SpreadsheetCreator:
 
         else:
             self.logger.error(schema + " does not exist")
-
 
     def _buildSpreadsheet(self, values, outputLocation):
         wb = Workbook()
@@ -145,12 +146,11 @@ class SpreadsheetCreator:
                 # ws.cell(column=col, row=3, value="Header").font = Font(bold=True)
                 # col +=1
 
-
                 # put each description in row 1, example in row 2 and header in row 3, then increment the column index
                 for header in headers:
                     ws.cell(column=col, row=1, value=header["description"])
-                    ws.cell(column=col, row=2, value=header["example"]).font = Font(italic = True)
-                    ws.cell(column=col, row=3, value=header["header"]).font = Font(bold = True)
+                    ws.cell(column=col, row=2, value=header["example"]).font = Font(italic=True)
+                    ws.cell(column=col, row=3, value=header["header"]).font = Font(bold=True)
                     col += 1
 
         # remove the blank worksheet that is automatically created with the spreadsheet
@@ -171,7 +171,6 @@ if __name__ == '__main__':
     parser.add_option("-i", "--include", dest="include",
                       help="Schema modules to include in the spreadsheet")
 
-
     (options, args) = parser.parse_args()
 
     # if not options.schema_uri:
@@ -182,12 +181,10 @@ if __name__ == '__main__':
     dependencies = options.include.split(",")
 
     for index, dependency in enumerate(dependencies):
-        dependencies[index] = options.schema_uri+dependency
+        dependencies[index] = options.schema_uri + dependency
 
     generator = SpreadsheetCreator()
     generator.generateSpreadsheet(options.schema_uri, schema_types, dependencies, options.output)
-
-
 
 # Example run:
 # -s "https://raw.githubusercontent.com/HumanCellAtlas/metadata-schema/v5_prototype/json_schema/"

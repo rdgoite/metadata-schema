@@ -70,10 +70,10 @@
         "organism_age": {
             "description": "Age in age_units. Measured since birth.",
             "type": "number",
-            "maximum": 150, 
+            "maximum": 150,
             "minimum": 0,
             "user_friendly": "Organism age"
-        }, 
+        },
         "organism_age_unit": {
             "description": "The unit in which age is expressed. Must be one of hour, day, week, month, or year.",
             "$ref": "https://raw.githubusercontent.com/HumanCellAtlas/metadata-schema/v5_prototype/json_schema/module/ontology/time_unit_ontology.json",
@@ -83,7 +83,7 @@
             "description": "A classification of the developmental stage of the organism.",
             "$ref": "https://raw.githubusercontent.com/HumanCellAtlas/metadata-schema/v5_prototype/json_schema/module/ontology/development_stage_ontology.json",
             "user_friendly": "Development stage"
-        }, 
+        },
         "disease": {
             "description": "Short description of disease status of the organism.",
             "type": "array",
@@ -126,14 +126,14 @@
             "description": "Yes if organism is living at time of biomaterial collection. No otherwise.",
             "type": "boolean",
             "user_friendly": "Is living?"
-        }, 
+        },
         "biological_sex": {
             "description": "The biological sex of the organism. Should be one of male, female, mixed, or unknown.",
             "type": "string",
             "enum": [
-                "female", 
-                "male", 
-                "mixed", 
+                "female",
+                "male",
+                "mixed",
                 "unknown"
             ],
             "user_friendly": "Biological sex"

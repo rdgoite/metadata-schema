@@ -11,11 +11,21 @@ tab_ordering = ["project", "project.publications", "contact", "organism", "famil
                 "cell_line", "cell_line.publications", "organoid", "collection_process", "dissociation_process", "enrichment_process", "library_preparation_process",
                 "sequencing_process", "purchased_reagents", "protocol", "sequence_file"]
 
+class SchemaDownloader:
+
+    def download(self):
+        pass
+
 class SchemaProcessor:
 
     def processTemplate(self, schema):
-        return True
-
+        values = []
+        values.append({
+            "header": "Process IDs",
+            "description": "IDs of processes for which this biomaterial is an input",
+            "example": None
+            })
+        return values
 
 class SpreadsheetCreator:
 

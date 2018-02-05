@@ -45,22 +45,24 @@ class SchemaProcessorTest(TestCase):
         self._assert_correct_biomaterial_header(biomaterial_header)
         self._assert_correct_process_header(process_headers)
 
-    def _assert_correct_biomaterial_header(self, values):
+    def _assert_correct_biomaterial_header(self, biomaterial_headers):
+        self._assert_correct_single_header(biomaterial_headers, {
+            'header': 'Process IDs',
+            'description': 'IDs of processes for which this biomaterial is an input',
+            'example': None
+        })
+
+    def _assert_correct_process_header(self, process_headers):
+        self._assert_correct_single_header(process_headers, {
+            "header": "Protocol IDs",
+            "description": "IDs of protocols which this process implements",
+            "example": None
+        })
+
+    def _assert_correct_single_header(self, values, expected_header):
         headers = [header for header in values if 'header' in header.keys()]
         self.assertEqual(1, len(headers))
         header = headers[0]
-        expected_header = {'header': 'Process IDs',
-                           'description': 'IDs of processes for which this biomaterial is an input',
-                           'example': None}
-        self.assertEqual(expected_header, header)
-
-    def _assert_correct_process_header(self, process_headers):
-        headers = [header for header in process_headers if 'header' in header.keys()]
-        self.assertEqual(1, len(headers))
-        header = headers[0]
-        expected_header = {"header": "Protocol IDs",
-                           "description": "IDs of protocols which this process implements",
-                           "example": None}
         self.assertEqual(expected_header, header)
 
 

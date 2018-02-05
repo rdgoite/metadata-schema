@@ -1,10 +1,9 @@
-from optparse import OptionParser
 import logging
-import openpyxl
-from openpyxl import Workbook
-import requests, pprint
-from openpyxl.styles import Font
+from optparse import OptionParser
 
+import requests
+from openpyxl import Workbook
+from openpyxl.styles import Font
 
 # hard coded tab ordering
 tab_ordering = ["project", "project.publications", "contact", "organism", "familial_relationship", "specimen_from_organism", "cell_suspension",
@@ -25,11 +24,18 @@ class SchemaProcessor:
 
     def _process_headers(self, schema_id):
         headers = []
-        headers.append({
-            "header": "Process IDs",
-            "description": "IDs of processes for which this biomaterial is an input",
-            "example": None
-        })
+        if 'type/biomaterial' in schema_id:
+            headers.append({
+                "header": "Process IDs",
+                "description": "IDs of processes for which this biomaterial is an input",
+                "example": None
+            })
+        elif 'type/process' in schema_id:
+            headers.append({
+                "header": "Protocol IDs",
+                "description": "IDs of protocols which this process implements",
+                "example": None
+            })
         return headers
 
 class SpreadsheetCreator:

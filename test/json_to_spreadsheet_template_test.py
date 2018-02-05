@@ -26,9 +26,23 @@ class SchemaProcessorTest(TestCase):
 
             #then:
             self.assertTrue(values)
-            self._assert_correct_header(values)
+            self._assert_correct_biomaterial_header(values)
 
-    def _assert_correct_header(self, values):
+    def test_process_headers(self):
+        # given:
+        biomaterial_uri = 'https://schema.humancellatlas.org/type/biomaterial/organism.json'
+
+        # and:
+        schema_processor = SchemaProcessor()
+
+        # when:
+        biomaterial_header = schema_processor._process_headers(biomaterial_uri)
+
+        # then:
+        self._assert_correct_biomaterial_header(biomaterial_header)
+
+
+    def _assert_correct_biomaterial_header(self, values):
         headers = [header for header in values if 'header' in header.keys()]
         self.assertEqual(1, len(headers))
         header = headers[0]

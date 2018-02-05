@@ -27,6 +27,15 @@ class SchemaProcessor:
             })
         return values
 
+    def _process_headers(self, schema):
+        headers = []
+        headers.append({
+            "header": "Process IDs",
+            "description": "IDs of processes for which this biomaterial is an input",
+            "example": None
+        })
+        return headers
+
 class SpreadsheetCreator:
 
     def __init__(self):

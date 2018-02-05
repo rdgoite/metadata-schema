@@ -1,3 +1,4 @@
+import json
 from unittest import TestCase
 from unittest.mock import patch, Mock
 
@@ -22,7 +23,7 @@ class SchemaProcessorTest(TestCase):
             schema_processor = SchemaProcessor()
 
             # when:
-            values = schema_processor.processTemplate(organism_schema)
+            values = schema_processor.process_template(json.loads(organism_schema))
 
             #then:
             self.assertTrue(values)

@@ -18,16 +18,12 @@ class SchemaDownloader:
 
 class SchemaProcessor:
 
-    def processTemplate(self, schema):
+    def process_template(self, schema):
         values = []
-        values.append({
-            "header": "Process IDs",
-            "description": "IDs of processes for which this biomaterial is an input",
-            "example": None
-            })
+        values.extend(self._process_headers(schema['id']))
         return values
 
-    def _process_headers(self, schema):
+    def _process_headers(self, schema_id):
         headers = []
         headers.append({
             "header": "Process IDs",

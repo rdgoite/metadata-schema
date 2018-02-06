@@ -36,6 +36,14 @@ class SchemaProcessor:
                 "description": "IDs of protocols which this process implements",
                 "example": None
             })
+        elif 'type/file' in schema_id:
+            headers.extend([
+                {"header": "Biomaterial ID",
+                "description": "ID of the biomaterial to which this file relates",
+                "example": None},
+                {"header": "Sequencing process ID",
+                "description": "ID of the sequencing process to which this file relates",
+                "example": None}])
         return headers
 
 class SpreadsheetCreator:
